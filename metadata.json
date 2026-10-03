@@ -1,0 +1,6 @@
+{
+  "name": "Daily Task Tracker",
+  "description": "Plan tasks, track focus time, and review daily progress in a mobile-first task tracker with a protected web admin panel.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
