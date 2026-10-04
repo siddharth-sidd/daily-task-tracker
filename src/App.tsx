@@ -32,7 +32,7 @@ import { AdminLogin } from './admin/AdminLogin.tsx';
 import { Wifi, BatteryMedium, Signal, Smartphone, ShieldCheck, Download, Maximize2 } from 'lucide-react';
 
 function AppContent() {
-  const { viewMode, setViewMode, isUserAdmin, isAdminLoading, isLoading, user } = useAuth();
+  const { viewMode, setViewMode, isUserAdmin, isAdminLoading, isLoading } = useAuth();
   const { activeTab, setIsApkModalOpen } = useTasks();
   const [adminSection, setAdminSection] = useState<AdminSection>('dashboard');
 
@@ -45,8 +45,6 @@ function AppContent() {
     if (isLoading) {
       return <div className="min-h-screen flex items-center justify-center bg-slate-50 text-sm text-slate-500">Loading your account…</div>;
     }
-    if (!user) return <AccountModal />;
-
     if (!isUserAdmin) {
       return <AdminLogin onReturnToApp={() => setViewMode('mobile_device')} />;
     }
