@@ -1,0 +1,41 @@
+name: Weekly Project Quality Checks
+
+on:
+  workflow_dispatch:
+  schedule:
+    # Sundays at 04:30 UTC (10:00 AM IST)
+    - cron: "30 4 * * 0"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: weekly-quality-checks
+  cancel-in-progress: true
+
+jobs:
+  quality:
+    name: Install, lint, build, and test
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Type-check / lint
+        run: npm run lint
+
+      - name: Production build
+        run: npm run build
+
+      - name: Run task-tracker tests
+        run: npx tsx tests/taskTracker.test.ts
